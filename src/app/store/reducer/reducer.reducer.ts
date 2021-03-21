@@ -1,11 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { TodoModel } from 'src/app/models/todo.model';
-import { loadAddTodos } from '../action/add-todo.actions';
+import { loadAddTodos, loadAddTodosSuccess } from '../action/add-todo.actions';
 import {
   loadGetTodoss,
   loadGetTodossSuccess,
 } from '../action/get-todos.actions';
-import { loadUpdateTodos } from '../action/update-todo.actions';
+import {
+  loadUpdateTodos,
+  loadUpdateTodosSuccess,
+} from '../action/update-todo.actions';
 
 export const reducerFeatureKey = 'reducer';
 
@@ -27,6 +30,8 @@ export const reducer = createReducer(
     todos: action.data,
     loading: false,
   })),
-  on(loadAddTodos, (state) => ({ ...state })),
-  on(loadUpdateTodos, (state) => ({ ...state }))
+  on(loadAddTodos, (state) => ({ ...state, loading: true })),
+  on(loadAddTodosSuccess, (state) => ({ ...state, loading: false })),
+  on(loadUpdateTodos, (state) => ({ ...state, loading: true })),
+  on(loadUpdateTodosSuccess, (state) => ({ ...state, loading: false }))
 );

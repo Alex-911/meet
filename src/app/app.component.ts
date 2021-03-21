@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TodoModel } from './models/todo.model';
 import { TodoServicesService } from './service/todo-services.service';
+import { loadAddTodos } from './store/action/add-todo.actions';
 import { loadGetTodoss } from './store/action/get-todos.actions';
 import { loadUpdateTodos } from './store/action/update-todo.actions';
 import { State } from './store/reducer/reducer.reducer';
@@ -43,16 +44,17 @@ export class AppComponent implements OnInit {
     let id!: number;
 
     this.todos.subscribe((todos) => (id = todos.length));
+    console.log(id);
 
     const newTodo: TodoModel = {
-      id: id,
+      id: id ?? 0,
       title,
       desc,
       dueDate,
       done: completed,
     };
 
-    this;
+    this.store.dispatch(loadAddTodos({ data: newTodo }));
 
     this.store.dispatch(loadGetTodoss());
   }

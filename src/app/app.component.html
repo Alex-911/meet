@@ -12,7 +12,7 @@
 <!-- Todo List -->
 <h1>Gnome</h1>
 
-<div *ngFor="let todo of todos">
+<div *ngFor="let todo of todos | async">
   <h1 (click)="updateTodo(todo)">{{ todo.title }}</h1>
   <p>{{ todo.done }}</p>
 </div>

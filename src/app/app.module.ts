@@ -12,10 +12,28 @@ import { environment } from '../environments/environment';
 import { AddTodoEffects } from './store/effects/add-todo.effects';
 import { GetTodoEffects } from './store/effects/get-todo.effects';
 import { UpdateTodoEffects } from './store/effects/update-todo.effects';
+import { reducer, reducerFeatureKey } from './store/reducer/reducer.reducer';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, StoreModule.forRoot({}, {}), EffectsModule.forRoot([]), StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }), EffectsModule.forFeature([AddTodoEffects, GetTodoEffects, UpdateTodoEffects])],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    StoreModule.forFeature(reducerFeatureKey, reducer),
+    EffectsModule.forFeature([
+      AddTodoEffects,
+      GetTodoEffects,
+      UpdateTodoEffects,
+    ]),
+  ],
   providers: [TodoServicesService],
   bootstrap: [AppComponent],
 })

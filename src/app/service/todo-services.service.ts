@@ -5,22 +5,37 @@ import { TodoModel } from '../models/todo.model';
   providedIn: 'root',
 })
 export class TodoServicesService {
-  private todos: TodoModel[] = [];
+  private todos: TodoModel[] = [
+    {
+      id: 0,
+      title: 'asdad',
+      desc: 'asdadad',
+      done: false,
+      dueDate: new Date(),
+    },
+  ];
 
   constructor() {}
 
   addTodo(todo: TodoModel): void {
+    // This is Immutable way to add data to array
+    this.todos = [...this.todos, todo];
     console.log(this.todos);
-    this.todos.push(todo);
   }
 
   getTodo(): TodoModel[] {
-    console.log(this.todos);
-
     return this.todos;
   }
 
   update(todo: TodoModel): void {
-    this.todos[todo.id].done = !this.todos[todo.id].done;
+    this.todos = this.todos.map((t) => {
+      let val: TodoModel;
+      if (t.id === todo.id) {
+        val = { ...t, done: !t.done };
+      } else {
+        val = t;
+      }
+      return val;
+    });
   }
 }
