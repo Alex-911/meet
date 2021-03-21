@@ -1,0 +1,18 @@
+<!-- Todo Form -->
+<div>
+  <form [formGroup]="todoForm" (ngSubmit)="submit()">
+    <input type="text" formControlName="title" />
+    <input type="text" formControlName="desc" />
+    <input type="checkbox" formControlName="completed" />
+    <input type="date" formControlName="dueDate" />
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<!-- Todo List -->
+<h1>Gnome</h1>
+
+<div *ngFor="let todo of todos">
+  <h1 (click)="updateTodo(todo)">{{ todo.title }}</h1>
+  <p>{{ todo.done }}</p>
+</div>
